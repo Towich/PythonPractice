@@ -70,22 +70,76 @@ def prog37(a, b):
 def fast_mul(a, b):
     result = 0
     step = 0
-    a = bin(a)
-    a = a[2:]
-    b = bin(b)
 
-    local_i = len(b) - 1
-    for i in range(len(b) - 2):
-        for j in range(len(a)):
-            result += str(int(a) * int(b[i]))
-        resultInt = int(result) * 2**step
-        local_i -= 1
+    a = bin(a)[2:]
+    b = bin(b)[2:]
+
+    for i in range(len(b)):
+        if b[len(b) - i - 1] != '0':
+            int10_a = int(a, 2) << step
+            result += int10_a
         step += 1
     return result
 
-a = 15
-b = 10
 
+# a = 10
+# b = 15
+# assert fast_mul(a, b) == a * b
+# print(fast_mul(a, b))
 
-assert fast_mul(a, b) == a * b
-print(fast_mul(a, b))
+def fast_pow(a, x):
+    a = bin(a)[2:]
+    b = a
+
+    if x == 0:
+        return 1
+
+    elif x == 1:
+        return int(a,2)
+
+    for k in range(x-1):
+        result = 0
+        step = 0
+        for i in range(len(b)):
+            if b[len(b) - i - 1] != '0':
+                int10_a = int(a, 2) << step
+                result += int10_a
+            step += 1
+        a = bin(result)[2:]
+    return result
+
+# a = 2
+# x = 9
+# #assert fast_pow(a, x) == a**x
+# print(fast_pow(a, x))
+
+def fast_mul_gen(a, y):
+    print("a =", a, "y =", y)
+    result = fast_mul(a, y)  # 28
+
+    local_a = a
+    while a < result:
+        a = a + a # 24
+        print("a += a")
+
+    diff = a - result  # 3
+
+    while diff != 0:
+        b = 1
+        while b + b <= diff:
+            b = b + b
+            print("b += b")
+
+        a -= b
+        print("a -= b")
+
+        diff = a - result  # 2
+
+    return a
+
+a = 3
+y = 7
+
+result_fast_mul_gen = fast_mul_gen(a, y)
+assert result_fast_mul_gen == a * y
+print("result =", result_fast_mul_gen)
