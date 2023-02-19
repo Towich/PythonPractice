@@ -7,8 +7,6 @@ def prog31(a):
     a += a
     return a
 
-
-
 def prog32(a):
     b = a + a #8
     a = b + b #16
