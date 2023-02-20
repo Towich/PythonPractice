@@ -1,6 +1,7 @@
 import cmath
 a = 4
 
+
 def prog31(a):
     b = a + a
     a = b + b + b
@@ -15,6 +16,7 @@ def prog32(a):
     a = a + a #64
     return a
 
+
 def prog33(a):
     b = a
     a = a + a  # 8
@@ -23,6 +25,7 @@ def prog33(a):
     b = b - a
     a = a - b
     return a
+
 
 def prog34(b, n, a):
     s1 = 0
@@ -39,7 +42,8 @@ def prog34(b, n, a):
         s3 *= s2
     return s3
 
-#print(prog34(2, 2, 6))
+# print(prog34(2, 2, 6))
+
 
 def prog35(x):
     if x < 13:
@@ -49,14 +53,16 @@ def prog35(x):
     else:
         return int(x)**3
 
-#print(prog35(12))
+# print(prog35(12))
+
 
 def prog36(n):
     if n == 0:
         return 3
     return cmath.sin((prog36(n-1))) - 1/16*(prog36(n-1))**3
 
-#print(prog36(8))
+# print(prog36(8))
+
 
 def prog37(a, b):
     final = 0
@@ -66,6 +72,7 @@ def prog37(a, b):
         a = a // 2
         b = b * 2
     return final
+
 
 def fast_mul(a, b):
     result = 0
@@ -86,6 +93,7 @@ def fast_mul(a, b):
 # b = 15
 # assert fast_mul(a, b) == a * b
 # print(fast_mul(a, b))
+
 
 def fast_pow(a, x):
     a = bin(a)[2:]
@@ -113,6 +121,7 @@ def fast_pow(a, x):
 # #assert fast_pow(a, x) == a**x
 # print(fast_pow(a, x))
 
+
 def fast_mul_gen(a, y):
     print("a =", a, "y =", y)
     result = fast_mul(a, y)  # 28
@@ -136,6 +145,7 @@ def fast_mul_gen(a, y):
         diff = a - result  # 2
 
     return a
+
 
 a = 3
 y = 7
