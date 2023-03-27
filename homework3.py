@@ -9,6 +9,8 @@ def f(ind_i, ind_j, a, n, m):
         for j in range(0, (m + 1) // 2):
             a[i][ind_j + j] = randint(0, 1) * randint(x * 10, (x + 10) * 10)
             a[i][ind_j + m - j - 1] = a[i][ind_j + j]
+
+
 n = 160
 m = 300
 N = 5
@@ -20,5 +22,5 @@ for i in range(0, n, N * 2):
         f(i, j, a, N, M)
 
 plt.figure(figsize=(20, 20))
-plt.imshow(a, cmap="PuBu")
+plt.imshow(a, cmap="tab20")
 plt.show()
