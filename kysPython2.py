@@ -38,6 +38,7 @@ def task6(x):
     return -1  # error
 
 
+
 # print(task6(['XML', 'OCAML', 1965, 1996, 'STATA']))
 # print(task6(['XML', 'INI', 1971, 1973, 'HTML']))
 # print(task6(['C', 'INI', 1971, 1996, 'STATA']))
@@ -65,4 +66,92 @@ def task8():
     return result
 
 
-print(task8())
+# print(task8())
+
+class StateMachine:
+    def __init__(self):
+        self.state = 'A'
+
+    def cut(self):
+        if self.state == 'A':
+            self.state = 'B'
+            return 0
+        if self.state == 'C':
+            self.state = 'D'
+            return 3
+        if self.state == 'F':
+            self.state = 'A'
+            return 8
+
+        raise MealyError("cut")
+
+    def sway(self):
+        if self.state == 'B':
+            return 2
+        if self.state == 'C':
+            return 5
+
+        raise MealyError("sway")
+
+    def draw(self):
+        if self.state == 'B':
+            self.state = 'C'
+            return 1
+        if self.state == 'C':
+            self.state = 'E'
+            return 4
+        if self.state == 'D':
+            self.state = 'E'
+            return 6
+        if self.state == 'E':
+            self.state = 'F'
+            return 7
+
+        raise MealyError("draw")
+
+
+class MealyError(Exception):
+    pass
+
+
+def main():
+    return StateMachine()
+
+
+def raises(method, error):
+    output = None
+    try:
+        output = method()
+    except Exception as e:
+        assert type(e) == error
+
+    assert output is None
+
+
+def test():
+    o = main()
+    assert o.cut() == 0  # 0
+    assert o.sway() == 2  # 2
+    assert o.draw() == 1  # 1
+    assert o.cut() == 3  # 3
+    assert o.draw() == 6  # 6
+    assert o.draw() == 7  # 7
+
+    raises(lambda: o.draw(), MealyError)
+
+    #assert o.sway() == MealyError  # MealyError
+    assert o.cut() == 8  # 8
+    #assert o.sway() == MealyError  # MealyError
+    assert o.cut() == 0  # 0
+
+    raises(lambda: o.cut(), MealyError)
+
+    assert o.sway() == 2  # 2
+    assert o.draw() == 1  # 1
+    assert o.sway() == 5  # 5
+    assert o.draw() == 4  # 4
+
+    raises(lambda: o.sway(), MealyError)
+
+
+test()
