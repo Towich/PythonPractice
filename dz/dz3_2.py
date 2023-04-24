@@ -2,7 +2,7 @@ class chaos:
     mu = 0.0
     state = 0.0
 
-    def __init__(self, mu, state): #  передаем параметры и состояние, стабилизируем
+    def __init__(self, mu, state):
         self.mu = mu
         self.state = state
         self.stabilaize()
@@ -15,14 +15,13 @@ class chaos:
         self.state = self.mu * self.state
 
 
-class LogisticMap(chaos): #переопределение метода перехода по формуле
+class LogisticMap(chaos):
 
     def __next__(self):
         self.state = self.mu * (1 - self.state) * self.state
         return self.state
 
 
-# %%
 o = LogisticMap(mu=2, state=0.1)
 print(o.__next__())
 print(o.__next__())

@@ -5,7 +5,7 @@ class chaos:
     mu = 0.0
     state = 0.0
 
-    def __init__(self, mu, state): #  передаем параметры и состояние, стабилизируем
+    def __init__(self, mu, state):
         self.mu = mu
         self.state = state
         self.stabilaize()
@@ -18,42 +18,44 @@ class chaos:
         self.state = self.mu * self.state
 
 
-class LogisticMap(chaos): #переопределение метода перехода по формуле
+class LogisticMap(chaos):
 
     def __next__(self):
         self.state = self.mu * (1 - self.state) * self.state
         return self.state
 
-def draw(vertices, edges):# передаем узлы и грани
-    dot = graphviz.Digraph() #граф
-    for v in vertices: #добавляем узлы
-        dot.node(str(v[0]), label=v[1]) #еще и название передаем
-    for e in edges: # пути НЕ ПУТЮ
+
+def draw(vertices, edges):
+    dot = graphviz.Digraph()
+    for v in vertices:
+        dot.node(str(v[0]), label=v[1])
+    for e in edges:
         dot.edge(str(e[0]), str(e[1]))
     return dot
 
-o = LogisticMap(mu=3.5, state=0.1) # создаем обжект
+
+o = LogisticMap(mu=3.5, state=0.1)
 
 
-def visualize(Map): #визуализируем карту
-    verts = set() #узлы без повторов
-    edges = [] #грани (список)
+def visualize(Map): # Визуализируем карту
+    verts = set()
+    edges = []
     i = 0
     j = 0
-    while True: #пока есть новые узлы - аппенд
+    while True:
         vert = Map.__next__()
         if vert in verts:
             break
         verts.add(vert)
         print(i, vert)
-        edges.append((i, i + 1)) #создаем грань
+        edges.append((i, i + 1))
         i += 1
 
-    edges.remove((i - 1, i)) #убираем лишние грани
-    edges.append((i - 1, j)) #добавляем "вернуться в начальное состояние"
-    vertices = [] #пустой список граней
+    edges.remove((i - 1, i))
+    edges.append((i - 1, j))
+    vertices = []
     i = 0
-    for vert in verts: #формируем список граней с названиями
+    for vert in verts:
         vertices.append((i, str(vert)))
         i += 1
 
